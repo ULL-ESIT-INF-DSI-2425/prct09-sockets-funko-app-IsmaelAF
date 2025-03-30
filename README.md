@@ -7,7 +7,7 @@ versiones de Node.js cada vez que se lleva a cabo un *push* o *pull request* en 
 2. El segundo flujo de trabajo permite llevar a cabo el cubrimiento del código fuente e integrándolo con
 Coveralls, una herramienta que permite ir registrando un histórico de cubrimiento
 
-[![CI TESTS](https://github.com/ULL-ESIT-INF-DSI-2425/prct08-filesystem-funko-app-IsmaelAF/actions/workflows/ci.yml/badge.svg)](https://github.com/ULL-ESIT-INF-DSI-2425/prct08-filesystem-funko-app-IsmaelAF/actions/workflows/ci.yml)
+[![CI TESTS](https://github.com/ULL-ESIT-INF-DSI-2425/prct09-sockets-funko-app-IsmaelAF/actions/workflows/ci.yml/badge.svg)](https://github.com/ULL-ESIT-INF-DSI-2425/prct09-sockets-funko-app-IsmaelAF/actions/workflows/ci.yml)
 
 [![Coverage Status](https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2425/prct08-filesystem-funko-app-IsmaelAF/badge.svg?branch=main)](https://coveralls.io/github/ULL-ESIT-INF-DSI-2425/prct08-filesystem-funko-app-IsmaelAF?branch=main)
 
