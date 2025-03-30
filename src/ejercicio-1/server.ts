@@ -67,13 +67,7 @@ const server = net.createServer({allowHalfOpen: true},(connection) => {
                 break;
             case 'remove':
                 let mess = manager.eliminarFunko(request.id!);
-                /*if(mess === false) {
-                    response = {type: 'remove', success: false};
-                } else if(mess === true) {
-                    response = {type: 'remove', success: true};
-                } else {
-                    response = {type: 'remove', success: false};
-                }*/
+                
                response = {type: 'remove', success: mess};
                 break;
             default:

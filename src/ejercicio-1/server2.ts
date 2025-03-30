@@ -10,6 +10,11 @@ import {EventEmitter} from 'events';
 
 
 export class MessageEventEmitter extends EventEmitter {
+    /**
+     * constructor de MessageEventEmitter, maneja los datos
+     * recibidos y emite evento 'request' cuando reciba una solicitud completa.
+     * @param connection - socket
+     */
     constructor(connection: EventEmitter) {
         super();
 

@@ -10,7 +10,10 @@ import { FunkoManager } from "./FunkoManager.js";
 import { RequestType } from './RequestType.js';
 import { ResponseType } from './ResponseType.js';
 
-
+/**
+ * Envía solicitud a server
+ * @param request - tipo de solicitud
+ */
 const sendRequest = (request: RequestType) => {
     
     const client = net.createConnection({port: 60300}, () => {
@@ -23,7 +26,6 @@ const sendRequest = (request: RequestType) => {
     client.on('data', (dataChunk) => {
         wholeData += dataChunk;
     });
-
 
 
     client.on('end', () => {
