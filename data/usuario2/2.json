@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "nombre": "nombre2",
+  "descripcion": "desc",
+  "tipo": "Pop!",
+  "genero": "Videojuegos",
+  "Franquicia": "franquicia1",
+  "numero": 1,
+  "exclusivo": false,
+  "caracteristicas": "none",
+  "valor": 25
+}

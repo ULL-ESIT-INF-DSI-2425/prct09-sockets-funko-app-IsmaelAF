@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "nombre": "nombre2",
+  "descripcion": "The best Sonic Funko ever,",
+  "tipo": "Pop!",
+  "genero": "Videojuegos",
+  "Franquicia": "Franquicia1",
+  "numero": 1,
+  "exclusivo": false,
+  "caracteristicas": "caracteristica1",
+  "valor": 25
+}
