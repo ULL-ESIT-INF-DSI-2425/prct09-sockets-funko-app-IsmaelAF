@@ -35,6 +35,19 @@ let funkoTest2 = new Funko(
     0
 );
 
+let funkoTest20 = new Funko(
+    2,
+    "nombre2",
+    "desc",
+    "Pop!" as FunkoTipo,
+    "Videojuegos" as FunkoGenero,
+    "franquicia1",
+    1,
+    false,
+    "none",
+    25
+);
+
 let funkoTest3 = new Funko(
     2,
     "nombre2",
@@ -101,16 +114,16 @@ describe("Tests FunkoManager", () => {
         }
         //fs.rmdirSync("data/usuarioTests");
         let manager = new FunkoManager("usuarioTests");
-        manager.addFunko(funkoTest);
+        const resultado = manager.addFunko(funkoTest);
 
-        expect(consoleSpy).toHaveBeenCalledWith("Funko añadido correctamente.");
+        expect(resultado).toBe(true);
     });
 
     test("Agregar funco existente funko", () => {
         let manager = new FunkoManager("usuarioTests");
-        manager.addFunko(funkoTest);
+        const resultado = manager.addFunko(funkoTest);
 
-        expect(consoleSpy).toHaveBeenCalledWith("Funko ya existe.");
+        expect(resultado).toBe(false);
         
     });
 
@@ -118,7 +131,7 @@ describe("Tests FunkoManager", () => {
         let manager = new FunkoManager("usuarioTests");
         const resultado = manager.listarFunkos();
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toEqual([funkoTest20]);
         
     });
 
@@ -126,11 +139,11 @@ describe("Tests FunkoManager", () => {
         let manager = new FunkoManager("usuarioTests");
         const resultado = manager.mostrarFunko(2);
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toEqual([funkoTest20]);
 
         const resultado2 = manager.mostrarFunko(3);
 
-        expect(resultado2).toBe(undefined);
+        expect(resultado2).toBe(false);
         
     });
 
@@ -151,7 +164,7 @@ describe("Tests FunkoManager", () => {
 
         const resultado = manager.actualizarFunko(funkoTest);
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toBe(true);
         
     });
 
@@ -172,7 +185,7 @@ describe("Tests FunkoManager", () => {
 
         const resultado = manager.actualizarFunko(funkoTest);
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toBe(false);
         
     });
 
@@ -181,7 +194,7 @@ describe("Tests FunkoManager", () => {
 
         const resultado = manager.eliminarFunko(88);
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toBe(false);
         
     });
 
@@ -189,7 +202,7 @@ describe("Tests FunkoManager", () => {
         let manager = new FunkoManager("usuarioTests");
         const resultado = manager.eliminarFunko(2);
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toBe(true);
         
     });
 
@@ -197,7 +210,7 @@ describe("Tests FunkoManager", () => {
         let manager = new FunkoManager("usuarioTests");
         const resultado = manager.listarFunkos();
 
-        expect(resultado).toBe(undefined);
+        expect(resultado).toBe(false);
         
     });
 

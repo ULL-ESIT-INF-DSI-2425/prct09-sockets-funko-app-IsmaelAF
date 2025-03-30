@@ -1,0 +1,12 @@
+{
+  "id": 13,
+  "nombre": "MODIFICADO",
+  "descripcion": "descripcion",
+  "tipo": "Pop!",
+  "genero": "Videojuegos",
+  "Franquicia": "franquicia",
+  "numero": 2,
+  "exclusivo": false,
+  "caracteristicas": "none",
+  "valor": 20
+}

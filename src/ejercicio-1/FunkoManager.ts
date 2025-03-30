@@ -50,18 +50,19 @@ export class FunkoManager {
      * @param funko - funko a agregar
      * @returns - undefined si ya existe el funko
      */
-    public addFunko(funko: Funko): void | undefined {
+    public addFunko(funko: Funko): boolean{
         /*if (!fs.existsSync(this.getUserPath())) {
             fs.mkdirSync(this.getUserPath(), {recursive: true });
         }*/
 
         if (fs.existsSync(this.getFunkoIdPath(funko.id))) {
-            console.log(chalk.red("Funko ya existe."));
-            return undefined;
+            //console.log(chalk.red("Funko ya existe."));
+            return false;
         }
 
         fs.writeFileSync(this.getFunkoIdPath(funko.id), JSON.stringify(funko, null, 2));
-        console.log(chalk.green("Funko añadido correctamente."));
+        //console.log(chalk.green("Funko añadido correctamente."));
+        return true;
     }
 
     /**
@@ -69,14 +70,15 @@ export class FunkoManager {
      * @param funko - Funko actualizado
      * @returns - undefined si no encuentra el funko a actualizar
      */
-    public actualizarFunko(funko: Funko): void | undefined {
+    public actualizarFunko(funko: Funko): boolean {
         if (!fs.existsSync(this.getFunkoPath(funko))) {
-            console.log(chalk.red("Funko no encontrado."));
-            return undefined;
+            //console.log(chalk.red("Funko no encontrado."));
+            return false;
         }
 
         fs.writeFileSync(this.getFunkoIdPath(funko.id), JSON.stringify(funko, null, 2));
-        console.log(chalk.green("Funko modificado correctamente."));
+        //console.log(chalk.green("Funko modificado correctamente."));
+        return true;
     }
 
 
@@ -85,15 +87,15 @@ export class FunkoManager {
      * @param id - id del funko a eliminar
      * @returns - undefined si no se encuentra el funko a eliminar
      */
-    public eliminarFunko(id: number): void | undefined {
+    public eliminarFunko(id: number): boolean {
         if (!fs.existsSync(this.getFunkoIdPath(id))) {
-            console.log(chalk.red("No se encontro el Funko a eliminar."));
-            return undefined;
+            //console.log(chalk.red("No se encontro el Funko a eliminar."));
+            return false;
         }
 
         fs.unlinkSync(this.getFunkoIdPath(id));
-        console.log(chalk.green("Funko eliminado."));
-
+        //console.log(chalk.green("Funko eliminado."));
+        return true;
     }
 
     /**
@@ -101,31 +103,36 @@ export class FunkoManager {
      * @param id - id del funko a leer
      * @returns - atributos del funko o undefined si no se encuentra el funko a leer
      */
-    public mostrarFunko(id:number): void | undefined {
+    public mostrarFunko(id:number): Funko[] | boolean {
         if (!fs.existsSync(this.getFunkoIdPath(id))) {
             console.log(chalk.red("No se encontro el Funko a leer."));
-            return undefined;
+            return false;
         }
+        //let result: Funko;
+        let result: Funko[] = [];
 
-        const funko = JSON.parse(fs.readFileSync(this.getFunkoIdPath(id), "utf-8"));
-        console.log(chalk.yellow(
-            `ID: ${funko.id}
-Nombre: ${funko.nombre}
-Descripcion: ${funko.descripcion}
-Tipo: ${funko.tipo}
-Genero: ${funko.genero}
-Franquicia: ${funko.Franquicia}
-Numero: ${funko.numero}
-Exclusiovo: ${funko.exclusivo}
-Caracteristicas: ${funko.caracteristicas}
-Valor: ${this.rangoValores(funko.valor)}`));
+        const funkoData = JSON.parse(fs.readFileSync(this.getFunkoIdPath(id), "utf-8"));
+        const funko = new Funko(
+            funkoData.id,
+            funkoData.nombre,
+            funkoData.descripcion,
+            funkoData.tipo,
+            funkoData.genero,
+            funkoData.Franquicia,
+            funkoData.numero,
+            funkoData.exclusivo,
+            funkoData.caracteristicas,
+            funkoData.valor
+        );
+        result.push(funko);
+        return result;
     }
 
     /**
      * Funcion para listar todos los funkos de una coleccion
      * @returns - todos los atributos de todos los Funkos en una coleccion o undefined si no se encuentra ningun Funko.
      */
-    public listarFunkos(): void | undefined{
+    public listarFunkos(): Funko[] | boolean{
         /*
         if (!fs.existsSync(this.getUserPath())) {
             console.log(chalk.red("No se encontro la carpeta del usuario."));
@@ -135,13 +142,30 @@ Valor: ${this.rangoValores(funko.valor)}`));
         const files = fs.readdirSync(this.getUserPath());
         if (files.length === 0) {
             console.log(chalk.red("No se encontraron Funkos."));
-            return undefined;
+            return false;
         }
 
         console.log(chalk.blue(`Coleccion de Funkos de: ${this.user}`));
+        let resultado: string = '';
+        let resul: Funko[] = [];
         files.forEach(file => {
-            const funko = JSON.parse(fs.readFileSync(path.join(this.getUserPath(), file), "utf-8"));
-            console.log(chalk.yellow(
+            
+            const funkoData = JSON.parse(fs.readFileSync(path.join(this.getUserPath(), file), "utf-8"));
+            const funko = new Funko(
+                funkoData.id,
+                funkoData.nombre,
+                funkoData.descripcion,
+                funkoData.tipo,
+                funkoData.genero,
+                funkoData.Franquicia,
+                funkoData.numero,
+                funkoData.exclusivo,
+                funkoData.caracteristicas,
+                funkoData.valor
+            );
+            resul.push(funko);
+            /*resultado += 
+chalk.yellow(
                 `----------------
 ID: ${funko.id}
 Nombre: ${funko.nombre}
@@ -152,8 +176,10 @@ Franquicia: ${funko.Franquicia}
 Numero: ${funko.numero}
 Exclusiovo: ${funko.exclusivo}
 Caracteristicas: ${funko.caracteristicas}
-Valor: ${this.rangoValores(funko.valor)}`));
+Valor: ${funko.valor}`
+);*/
         });
+        return resul;
     }
 
     /**
@@ -161,12 +187,12 @@ Valor: ${this.rangoValores(funko.valor)}`));
      * @param valor - valor del mercado
      * @returns valor del mercado con el estilo correspondiente
      */
-    private rangoValores(valor: number): string {
+    /*private rangoValores(valor: number): string {
         if (valor > 100) return chalk.green(valor.toString());
         if (valor > 50) return chalk.blue(valor.toString());
         if (valor > 20) return chalk.bgWhite(valor.toString());
         if (valor > 2) return chalk.red(valor.toString());
         return chalk.red(valor.toString());
-    }
+    }*/
 
 }
